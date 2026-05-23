@@ -4,6 +4,8 @@ const registerService = require("../services/register.service")
 let registerController = async (req, res) => {
     try {
         let user = await registerService(req.body);
+
+        
         res.status(201).json({
             success: true,
             message: "user registered successfully",
@@ -20,7 +22,7 @@ let registerController = async (req, res) => {
 let loginController = async (req,res) => {
     try{
         let user = await loginService(req.body)
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             message: "user logged in successfully",
             user

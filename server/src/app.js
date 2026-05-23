@@ -1,9 +1,15 @@
 const express = require("express")
 const authRoutes = require("./routes/auth.routes")
+const cors = require('cors')
 
 let app = express()
 
 app.use(express.json())
+app.use(cors({
+    origin:"http://localhost:5173",
+    methods:['GET','POST','PUT','DELETE'],
+    credentials: true
+}))
 
 app.use("/api/user", authRoutes)
 
