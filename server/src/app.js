@@ -1,8 +1,11 @@
 const express = require("express")
+const authRoutes = require("./routes/auth.routes")
 
 let app = express()
 
 app.use(express.json())
+
+app.use("/api/user", authRoutes)
 
 app.get("/test", (req, res) => {
     try {
@@ -12,7 +15,7 @@ app.get("/test", (req, res) => {
             })
     } catch (error) {
         res.status(500)
-            .json({message:"Internal server error"})
+            .json({ message: "Internal server error" })
     }
 })
 
