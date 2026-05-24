@@ -5,6 +5,7 @@ import AuthLayout from '../layouts/AuthLayout'
 import Login from '../components/Login'
 import Register from '../components/Register'
 import ForgotPass from '../components/ForgotPass'
+import ResetPassword from '../components/ResetPassword'
 
 const AppRoutes = () => {
   let router = createBrowserRouter([
@@ -28,6 +29,10 @@ const AppRoutes = () => {
         {
           path:"forgot-password",
           element:<ForgotPass/>
+        },
+        {
+          path:"reset-password/:token",
+          element:<ResetPassword/>
         },
       ]
     }

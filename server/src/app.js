@@ -1,6 +1,7 @@
 const express = require("express")
 const authRoutes = require("./routes/auth.routes")
 const cors = require('cors')
+const cookieParser = require("cookie-parser")
 
 let app = express()
 
@@ -10,6 +11,7 @@ app.use(cors({
     methods:['GET','POST','PUT','DELETE'],
     credentials: true
 }))
+app.use(cookieParser())
 
 app.use("/api/user", authRoutes)
 

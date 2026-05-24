@@ -1,3 +1,4 @@
+const { generateToken } = require("../config/token")
 const User = require("../models/user.model")
 const bcrypt = require('bcrypt')
 
@@ -25,7 +26,12 @@ let loginService = async ({email,password}) => {
             throw new Error("Wrong Password")
         }
 
-        return existingUser;
+        let token = generateToken(existingUser._id)
+
+        return {
+            existingUser,
+            token
+        };
 
     } catch (error) {
         throw error

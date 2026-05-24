@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
+import axiosInstance from "../api/axios";
 
 const ForgotPass = () => {
 
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-
-    console.log("Forgot Password Email:", email);
+    try {
+      let response = await axiosInstance.post("/user/forget-password",{email:email})
+      console.log(response.data);
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
