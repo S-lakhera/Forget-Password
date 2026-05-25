@@ -7,12 +7,12 @@ let resetPasswordService = async(token,password) => {
             throw new Error("Password is required!!")
         }
 
-        let userId = verifyRawToken(token)
-        if(!userId){
+        let decoded = verifyRawToken(token)
+        if(!decoded){
             throw new Error("Invalid or Expired token")
         }
         
-        let user = await User.findById({_id:userId.id})
+        let user = await User.findById({_id:decoded.id})
         if(!user){
             throw new Error("User not found")
         }
