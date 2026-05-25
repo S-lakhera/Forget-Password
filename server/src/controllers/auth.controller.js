@@ -1,3 +1,4 @@
+const cacheInstance = require("../config/caching");
 const forgetPasswordService = require("../services/forgetPass.service");
 const loginService = require("../services/login.service");
 const registerService = require("../services/register.service");
@@ -41,6 +42,26 @@ let loginController = async (req, res) => {
     }
 }
 
+let logoutController = (req, res) => {
+    try {
+        let token = req.cookies.token;
+        cacheInstance.set(token,"blacklisted","Ex", 60*60)
+
+        res.clearCookie("token")
+
+        res.status(200).json({
+            message:"User logged out successfully.",
+            success:true,
+            user:req.user
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+        })
+    }
+}
+
 let forgetPasswordController = async (req, res) => {
     try {
         let response = await forgetPasswordService(req.body)
@@ -63,11 +84,11 @@ let resetPasswordController = async (req, res) => {
     try {
         let token = req.params.token;
         let password = req.body.password
-        let user = await resetPasswordService(token,password)
+        let user = await resetPasswordService(token, password)
 
         res.status(200).json({
-            message:"Password changed successfuly",
-            success:true,
+            message: "Password changed successfuly",
+            success: true,
             user
         })
     } catch (error) {
@@ -84,5 +105,6 @@ module.exports = {
     registerController,
     loginController,
     forgetPasswordController,
-    resetPasswordController
+    resetPasswordController,
+    logoutController
 }

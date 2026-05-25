@@ -30,8 +30,20 @@ const Login = () => {
     }
   };
 
+  const handleLogout = () => {
+    try {
+      const response = axiosInstance.get("/user/logout");
+
+      console.log(response.data)
+
+    } catch (error) {
+
+      console.log(error.response.data)
+    }
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4">
+    <div className="min-h-screen flex flex-col gap-5 items-center justify-center bg-zinc-950 px-4">
 
       <form
         onSubmit={handleSubmit}
@@ -107,6 +119,13 @@ const Login = () => {
         </div>
 
       </form>
+
+      <button
+        onClick={handleLogout}
+        className="w-1/3 bg-blue-600 hover:bg-blue-700 transition-all py-3 rounded-xl text-white font-semibold"
+      >
+        Logout
+      </button>
 
     </div>
   );

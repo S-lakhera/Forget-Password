@@ -10,6 +10,11 @@ let generateRawToken = (userId) => {
         throw new Error(error.message)
     }
 }
+let verifyRawToken = (token) => {
+    return jwt.verify(token,process.env.RAW_SECRET)
+}
+
+
 let generateToken = (userId) => {
     try {
         let token = jwt.sign({id:userId}, process.env.RAW_SECRET, 
@@ -20,18 +25,14 @@ let generateToken = (userId) => {
     }
 }
 
-let verifyRawToken = (token) => {
-    try {
-        let userId = jwt.verify(token,process.env.RAW_SECRET)
-        return userId;
-    } catch (error) {
-        
-        throw new Error(error.message)
-    }
+let verifyToken = (token) => {
+    return jwt.verify(token,process.env.RAW_SECRET)
 }
+
 
 module.exports = {
     generateRawToken,
     generateToken,
-    verifyRawToken
+    verifyRawToken,
+    verifyToken
 }
